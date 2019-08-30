@@ -26,6 +26,7 @@ const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
 const ForkTsCheckerWebpackPlugin = require('react-dev-utils/ForkTsCheckerWebpackPlugin');
 const typescriptFormatter = require('react-dev-utils/typescriptFormatter');
 const eslint = require('eslint');
+const DirectoryNamedWebpackPlugin = require("directory-named-webpack-plugin");
 
 const postcssNormalize = require('postcss-normalize');
 
@@ -290,6 +291,13 @@ module.exports = function(webpackEnv) {
         // Support React Native Web
         // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
         'react-native': 'react-native-web',
+        'ACTIONS': path.resolve('src/actions'),
+        'COMPONENTS': path.resolve('src/components/'),
+        'CONSTANTS': path.resolve('src/constants/'),
+        'CONTAINERS': path.resolve('src/containers/'),
+        'REDUCERS': path.resolve('src/reducers/'),
+        'SERVICES': path.resolve('src/services/'),
+        'IMAGES': path.resolve('src/images/'),
       },
       plugins: [
         // Adds support for installing with Plug'n'Play, leading to faster installs and adding
@@ -301,6 +309,7 @@ module.exports = function(webpackEnv) {
         // please link the files into your node_modules/ and let module-resolution kick in.
         // Make sure your source files are compiled, as they will not be processed in any way.
         new ModuleScopePlugin(paths.appSrc, [paths.appPackageJson]),
+        new DirectoryNamedWebpackPlugin(),
       ],
     },
     resolveLoader: {
